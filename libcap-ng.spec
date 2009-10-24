@@ -10,6 +10,7 @@ Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 # XXX: where is <linux/securebits.h>?
+BuildRequires:	automake
 BuildRequires:	linux-libc-headers >= 7:2.6.26
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
