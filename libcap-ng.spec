@@ -67,7 +67,7 @@ This package contains applications to analyse the POSIX capabilities
 of all the program running on a system. It also lets you set the file
 system based capabilities.
 
-%description utils
+%description utils -l pl.UTF-8
 Ten pakiet zawiera aplikacje do analizy POSIX-owych capabilities
 wszystkich programów działających w systemie; pozwala także ustawiać
 capabilities w systemie plików.
