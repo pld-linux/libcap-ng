@@ -1,12 +1,12 @@
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.6.2
-Release:	0.2
+Version:	0.6.3
+Release:	0.1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	f9af01f4ec602506da717632b94354fd
+# Source0-md5:	86a6aa9fbc6689b7e92580713f706cbd
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 # XXX: where is <linux/securebits.h>?
