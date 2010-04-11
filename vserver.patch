@@ -1,0 +1,22 @@
+diff -upr libcap-ng-0.6.3./bindings/python/capng.py libcap-ng-0.6.3/bindings/python/capng.py
+--- libcap-ng-0.6.3./bindings/python/capng.py	2009-10-10 17:26:34.000000000 +0200
++++ libcap-ng-0.6.3/bindings/python/capng.py	2010-04-11 20:13:20.908135359 +0200
+@@ -100,6 +100,7 @@ CAP_AUDIT_CONTROL = _capng.CAP_AUDIT_CON
+ CAP_SETFCAP = _capng.CAP_SETFCAP
+ CAP_MAC_OVERRIDE = _capng.CAP_MAC_OVERRIDE
+ CAP_MAC_ADMIN = _capng.CAP_MAC_ADMIN
++CAP_CONTEXT = _capng.CAP_CONTEXT
+ CAP_LAST_CAP = _capng.CAP_LAST_CAP
+ CAPNG_DROP = _capng.CAPNG_DROP
+ CAPNG_ADD = _capng.CAPNG_ADD
+diff -upr libcap-ng-0.6.3./src/captab.h libcap-ng-0.6.3/src/captab.h
+--- libcap-ng-0.6.3./src/captab.h	2009-03-16 18:12:32.000000000 +0100
++++ libcap-ng-0.6.3/src/captab.h	2010-04-11 20:14:16.641332609 +0200
+@@ -60,4 +60,7 @@ _S(CAP_MAC_OVERRIDE,		"mac_override"		)
+ #ifdef CAP_MAC_ADMIN
+ _S(CAP_MAC_ADMIN,		"mac_admin"		)
+ #endif
++#ifdef CAP_CONTEXT
++_S(CAP_CONTEXT,			"context"		)
++#endif
+ 
