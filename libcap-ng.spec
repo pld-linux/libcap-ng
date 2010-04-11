@@ -2,16 +2,16 @@ Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
 Version:	0.6.3
-Release:	0.1
+Release:	1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
 # Source0-md5:	86a6aa9fbc6689b7e92580713f706cbd
+Patch0:		vserver.patch
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
-# XXX: where is <linux/securebits.h>?
 BuildRequires:	automake
-BuildRequires:	linux-libc-headers >= 7:2.6.26
+BuildRequires:	linux-libc-headers >= 7:2.6.33.1
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
@@ -87,6 +87,7 @@ Pythonowy interfejs do biblioteki libcap-ng.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure
