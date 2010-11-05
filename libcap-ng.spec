@@ -1,12 +1,12 @@
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.6.4
-Release:	2
+Version:	0.6.5
+Release:	1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	ae817cd585ca11db257330b392003ed6
+# Source0-md5:	759ae1accd9954f3e08c2f94b4ecfcf9
 Patch0:		vserver.patch
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
@@ -104,7 +104,7 @@ mv $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libcap-ng.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so
 
 %py_postclean
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_capng.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_capng.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
