@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	python		# build without python bindings
+#
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
@@ -15,7 +19,7 @@ BuildRequires:	linux-libc-headers >= 7:2.6.33.1
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
-BuildRequires:	swig-python
+%{?with_python:BuildRequires:	swig-python}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -103,8 +107,10 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 mv $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libcap-ng.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so
 
+%if %{with python}
 %py_postclean
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_capng.la
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -142,7 +148,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/netcap.8*
 %{_mandir}/man8/pscap.8*
 
+%if %{with python}
 %files -n python-capng
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_capng.so
 %{py_sitedir}/capng.py[co]
+%endif
