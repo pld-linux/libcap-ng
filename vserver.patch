@@ -1,10 +1,10 @@
-diff -upr libcap-ng-0.6.3./bindings/python/capng.py libcap-ng-0.6.3/bindings/python/capng.py
---- libcap-ng-0.6.3./bindings/python/capng.py	2009-10-10 17:26:34.000000000 +0200
-+++ libcap-ng-0.6.3/bindings/python/capng.py	2010-04-11 20:13:20.908135359 +0200
-@@ -100,6 +100,7 @@ CAP_AUDIT_CONTROL = _capng.CAP_AUDIT_CON
- CAP_SETFCAP = _capng.CAP_SETFCAP
- CAP_MAC_OVERRIDE = _capng.CAP_MAC_OVERRIDE
+--- libcap-ng-0.7/bindings/python/capng.py.orig	2012-09-14 21:32:13.379634254 +0200
++++ libcap-ng-0.7/bindings/python/capng.py	2012-09-14 21:34:15.389631713 +0200
+@@ -103,6 +103,8 @@
  CAP_MAC_ADMIN = _capng.CAP_MAC_ADMIN
+ CAP_SYSLOG = _capng.CAP_SYSLOG
+ CAP_WAKE_ALARM = _capng.CAP_WAKE_ALARM
++CAP_BLOCK_SUSPEND = _capng.CAP_BLOCK_SUSPEND
 +CAP_CONTEXT = _capng.CAP_CONTEXT
  CAP_LAST_CAP = _capng.CAP_LAST_CAP
  CAPNG_DROP = _capng.CAPNG_DROP
