@@ -1,9 +1,9 @@
---- libcap-ng-0.7.1/bindings/python/capng.py.orig	2012-10-26 23:23:55.757189744 +0200
-+++ libcap-ng-0.7.1/bindings/python/capng.py	2012-10-26 23:24:51.647187397 +0200
-@@ -104,6 +104,7 @@
- CAP_SYSLOG = _capng.CAP_SYSLOG
+--- libcap-ng-0.7.3/bindings/python/capng.py.orig	2012-11-13 18:32:09.065661802 +0100
++++ libcap-ng-0.7.3/bindings/python/capng.py	2012-11-13 18:33:45.622324417 +0100
+@@ -105,6 +105,7 @@
  CAP_WAKE_ALARM = _capng.CAP_WAKE_ALARM
  CAP_BLOCK_SUSPEND = _capng.CAP_BLOCK_SUSPEND
+ CAP_COMPROMISE_KERNEL = _capng.CAP_COMPROMISE_KERNEL
 +CAP_CONTEXT = _capng.CAP_CONTEXT
  CAP_LAST_CAP = _capng.CAP_LAST_CAP
  CAPNG_DROP = _capng.CAPNG_DROP
