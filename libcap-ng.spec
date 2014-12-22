@@ -16,7 +16,7 @@ URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	automake
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
-BuildRequires:	python-devel
+%{?with_python:BuildRequires:	python-devel}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 %{?with_python:BuildRequires:	swig-python}
