@@ -1,22 +1,29 @@
 #
 # Conditional build:
-%bcond_without	python		# build without python bindings
+%bcond_without	python		# (any) Python bindings
+%bcond_without	python2		# CPython 2 bindings
+%bcond_without	python3		# CPython 3 bindings
 #
+%if %{without python}
+%undefine	with_python2
+%undefine	with_python3
+%endif
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.7.4
-Release:	2
+Version:	0.7.6
+Release:	1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	55c57c0673b944ea1a755bcb2636dabd
+# Source0-md5:	9ac7976c76d44e202da433bfb351de60
 Patch0:		vserver.patch
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	automake
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
-%{?with_python:BuildRequires:	python-devel}
+%{?with_python2:BuildRequires:	python-devel >= 2}
+%{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 %{?with_python:BuildRequires:	swig-python}
@@ -77,27 +84,40 @@ wszystkich programów działających w systemie; pozwala także ustawiać
 capabilities w systemie plików.
 
 %package -n python-capng
-Summary:	Python interface to libcap-ng library
-Summary(pl.UTF-8):	Pythonowy interfejs do biblioteki libcap-ng
+Summary:	Python 2 interface to libcap-ng library
+Summary(pl.UTF-8):	Interfejs Pythona 2 do biblioteki libcap-ng
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-%pyrequires_eq	python-libs
 
 %description -n python-capng
-Python interface to libcap-ng library.
+Python 2 interface to libcap-ng library.
 
 %description -n python-capng -l pl.UTF-8
-Pythonowy interfejs do biblioteki libcap-ng.
+Interfejs Pythona 2 do biblioteki libcap-ng.
+
+%package -n python3-capng
+Summary:	Python 3 interface to libcap-ng library
+Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki libcap-ng
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+
+%description -n python3-capng
+Python 3 interface to libcap-ng library.
+
+%description -n python3-capng -l pl.UTF-8
+Interfejs Pythona 3 do biblioteki libcap-ng.
 
 %prep
 %setup -q
 %patch0 -p1
 
 # force regeneration after captab.h change in vserver patch
-%{__rm} bindings/python/capng.py
+%{__rm} bindings/{python,python3}/capng.py
 
 %build
-%configure
+%configure \
+	%{!?with_python2:--without-python} \
+	%{!?with_python3:--without-python3}
 %{__make}
 
 %install
@@ -110,9 +130,14 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 mv $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libcap-ng.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so
 
-%if %{with python}
+%if %{with python2}
 %py_postclean
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_capng.la
+%endif
+%if %{with python3}
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/_capng.la
+%py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
 %endif
 
 %clean
@@ -151,9 +176,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/netcap.8*
 %{_mandir}/man8/pscap.8*
 
-%if %{with python}
+%if %{with python2}
 %files -n python-capng
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_capng.so
 %{py_sitedir}/capng.py[co]
+%endif
+
+%if %{with python3}
+%files -n python3-capng
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py3_sitedir}/_capng.so
+%{py3_sitedir}/capng.py
+%{py3_sitedir}/__pycache__/capng.cpython-*.py[co]
 %endif
