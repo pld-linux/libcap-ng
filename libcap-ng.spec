@@ -12,7 +12,7 @@ Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
 Version:	0.7.8
-Release:	5
+Release:	6
 Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
@@ -45,7 +45,7 @@ Summary:	Header files for libcap-ng library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libcap-ng
 License:	LGPL v2.1+
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	linux-libc-headers >= 7:2.6.26
 
 %description devel
