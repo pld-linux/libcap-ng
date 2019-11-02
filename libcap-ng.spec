@@ -13,6 +13,7 @@ Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
 Version:	0.7.10
 Release:	1
+Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
@@ -45,7 +46,7 @@ Summary:	Header files for libcap-ng library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libcap-ng
 License:	LGPL v2.1+
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	linux-libc-headers >= 7:2.6.26
 
 %description devel
@@ -59,7 +60,7 @@ Summary:	Static libcap-ng library
 Summary(pl.UTF-8):	Statyczna biblioteka libcap-ng
 License:	LGPL v2.1+
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static libcap-ng library.
@@ -72,7 +73,7 @@ Summary:	Utilities for analysing and setting file capabilities
 Summary(pl.UTF-8):	Narzędzia do analizy i ustawiania capabilities dla plików
 License:	GPL v2+
 Group:		Applications/System
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description utils
 This package contains applications to analyse the POSIX capabilities
@@ -88,7 +89,7 @@ capabilities w systemie plików.
 Summary:	Python 2 interface to libcap-ng library
 Summary(pl.UTF-8):	Interfejs Pythona 2 do biblioteki libcap-ng
 Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description -n python-capng
 Python 2 interface to libcap-ng library.
@@ -100,7 +101,7 @@ Interfejs Pythona 2 do biblioteki libcap-ng.
 Summary:	Python 3 interface to libcap-ng library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki libcap-ng
 Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description -n python3-capng
 Python 3 interface to libcap-ng library.
