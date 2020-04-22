@@ -22,6 +22,7 @@ Patch0:		vserver.patch
 Patch1:		unloadable.patch
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
+BuildRequires:	autoconf >= 2.12
 BuildRequires:	automake
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
 %{?with_python2:BuildRequires:	python-devel >= 2}
@@ -118,6 +119,9 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %{__rm} bindings/{python,python3}/capng.py
 
 %build
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	%{!?with_python2:--without-python} \
 	%{!?with_python3:--without-python3}
