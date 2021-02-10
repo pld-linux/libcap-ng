@@ -11,13 +11,13 @@
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.8
+Version:	0.8.2
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	57d1837e70452e964a8c123fc6f838d8
+# Source0-md5:	faf1ef766cf068ad1aba4008ced665f7
 Patch0:		vserver.patch
 Patch1:		unloadable.patch
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
@@ -158,19 +158,25 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) /%{_lib}/libcap-ng.so.*.*.*
 %attr(755,root,root) %ghost /%{_lib}/libcap-ng.so.0
+%attr(755,root,root) %{_libdir}/libdrop_ambient.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libdrop_ambient.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libcap-ng.so
 %{_libdir}/libcap-ng.la
+%attr(755,root,root) %{_libdir}/libdrop_ambient.so
+%{_libdir}/libdrop_ambient.la
 %{_includedir}/cap-ng.h
 %{_pkgconfigdir}/libcap-ng.pc
 %{_aclocaldir}/cap-ng.m4
 %{_mandir}/man3/capng_*.3*
+%{_mandir}/man7/libdrop_ambient.7*
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libcap-ng.a
+%{_libdir}/libdrop_ambient.a
 
 %files utils
 %defattr(644,root,root,755)

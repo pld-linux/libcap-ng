@@ -19,10 +19,11 @@ diff --git a/src/Makefile.am b/src/Makefile.am
 index 5a66d4e..d46d02b 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -34,5 +34,5 @@ noinst_HEADERS = captab.h
+@@ -34,6 +34,6 @@ noinst_HEADERS = captab.h
  libcap_ng_la_SOURCES = cap-ng.c lookup_table.c
  libcap_ng_la_LIBADD =
  libcap_ng_la_DEPENDENCIES = $(libcap_ng_la_SOURCES) ../config.h
 -libcap_ng_la_LDFLAGS = -Wl,-z,relro
 +libcap_ng_la_LDFLAGS = -Wl,-z,relro -Wl,-z,nodelete
+ libdrop_ambient_la_SOURCES = libdrop_ambient.c
  
