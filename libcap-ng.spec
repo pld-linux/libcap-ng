@@ -3,6 +3,7 @@
 %bcond_without	python		# (any) Python bindings
 %bcond_without	python2		# CPython 2 bindings
 %bcond_without	python3		# CPython 3 bindings
+%bcond_without	static_libs	# static libraries
 #
 %if %{without python}
 %undefine	with_python2
@@ -29,7 +30,7 @@ BuildRequires:	linux-libc-headers >= 7:2.6.33.1
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 %{?with_python3:BuildRequires:	python3-modules >= 1:3.2}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.527
 %{?with_python:BuildRequires:	swig-python}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -124,6 +125,7 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %{__autoconf}
 %{__automake}
 %configure \
+	%{__enable_disable static_libs static} \
 	%{!?with_python2:--without-python} \
 	%{!?with_python3:--without-python3}
 %{__make}
@@ -174,10 +176,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/capng_*.3*
 %{_mandir}/man7/libdrop_ambient.7*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libcap-ng.a
 %{_libdir}/libdrop_ambient.a
+%endif
 
 %files utils
 %defattr(644,root,root,755)
