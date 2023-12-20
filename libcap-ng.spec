@@ -27,6 +27,7 @@ BuildRequires:	automake
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
 %{?with_python2:BuildRequires:	python-devel >= 2}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
+%{?with_python3:BuildRequires:	python3-modules >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 %{?with_python:BuildRequires:	swig-python}
