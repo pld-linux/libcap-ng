@@ -1,37 +1,30 @@
 #
 # Conditional build:
-%bcond_without	python		# (any) Python bindings
-%bcond_without	python2		# CPython 2 bindings
 %bcond_without	python3		# CPython 3 bindings
 %bcond_without	static_libs	# static libraries
 #
-%if %{without python}
-%undefine	with_python2
-%undefine	with_python3
-%endif
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.8.3
+Version:	0.8.4
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	cdfc750af32f681293e43c5c1bd427c8
+# Source0-md5:	950748fcbc46a9bacf544e97724e46a2
 Patch0:		vserver.patch
 Patch1:		unloadable.patch
 URL:		http://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
-BuildRequires:	autoconf >= 2.12
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
-%{?with_python2:BuildRequires:	python-devel >= 2}
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 %{?with_python3:BuildRequires:	python3-modules >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.527
-%{?with_python:BuildRequires:	swig-python}
+%{?with_python3:BuildRequires:	swig-python}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -88,23 +81,12 @@ Ten pakiet zawiera aplikacje do analizy POSIX-owych capabilities
 wszystkich programów działających w systemie; pozwala także ustawiać
 capabilities w systemie plików.
 
-%package -n python-capng
-Summary:	Python 2 interface to libcap-ng library
-Summary(pl.UTF-8):	Interfejs Pythona 2 do biblioteki libcap-ng
-Group:		Libraries/Python
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-
-%description -n python-capng
-Python 2 interface to libcap-ng library.
-
-%description -n python-capng -l pl.UTF-8
-Interfejs Pythona 2 do biblioteki libcap-ng.
-
 %package -n python3-capng
 Summary:	Python 3 interface to libcap-ng library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki libcap-ng
 Group:		Libraries/Python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Obsoletes:	python-capng < 1:0.8.4
 
 %description -n python3-capng
 Python 3 interface to libcap-ng library.
@@ -118,7 +100,7 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %patch1 -p1
 
 # force regeneration after captab.h change in vserver patch
-%{__rm} bindings/{python,python3}/capng.py
+%{__rm} bindings/python3/capng.py
 
 %build
 %{__aclocal}
@@ -126,7 +108,6 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %{__automake}
 %configure \
 	%{__enable_disable static_libs static} \
-	%{!?with_python2:--without-python} \
 	%{!?with_python3:--without-python3}
 %{__make}
 
@@ -140,10 +121,6 @@ install -d $RPM_BUILD_ROOT/%{_lib}
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libcap-ng.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so
 
-%if %{with python2}
-%py_postclean
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_capng.la
-%endif
 %if %{with python3}
 %{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/_capng.la
 %py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
@@ -158,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README.md
 %attr(755,root,root) /%{_lib}/libcap-ng.so.*.*.*
 %attr(755,root,root) %ghost /%{_lib}/libcap-ng.so.0
 %attr(755,root,root) %{_libdir}/libdrop_ambient.so.*.*.*
@@ -193,13 +170,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/filecap.8*
 %{_mandir}/man8/netcap.8*
 %{_mandir}/man8/pscap.8*
-
-%if %{with python2}
-%files -n python-capng
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/_capng.so
-%{py_sitedir}/capng.py[co]
-%endif
 
 %if %{with python3}
 %files -n python3-capng
