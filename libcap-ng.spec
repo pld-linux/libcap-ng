@@ -11,12 +11,12 @@ Release:	1
 Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
-Source0:	http://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
+Source0:	https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
 # Source0-md5:	3c280d902b902f28caf3990e018fcd31
 Patch0:		vserver.patch
 Patch1:		unloadable.patch
 Patch2:		python-var.patch
-URL:		http://people.redhat.com/sgrubb/libcap-ng/
+URL:		https://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
