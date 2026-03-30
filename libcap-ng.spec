@@ -6,16 +6,14 @@
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.8.5
-Release:	2
+Version:	0.9.2
+Release:	1
 Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
-Source0:	https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# Source0-md5:	3c280d902b902f28caf3990e018fcd31
+Source0:	https://github.com/stevegrubb/libcap-ng/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	c0603e7f6e68fa3fd4bcfc5ea93f3b93
 Patch0:		vserver.patch
-Patch1:		unloadable.patch
-Patch2:		python-var.patch
 URL:		https://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.50
@@ -99,11 +97,9 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %prep
 %setup -q
 %patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
 
 # force regeneration after captab.h change in vserver patch
-%{__rm} bindings/python3/capng.py
+%{__rm} -f bindings/python3/capng.py
 
 %build
 %{__libtoolize}
@@ -113,6 +109,7 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %{__automake}
 %configure \
 	%{__enable_disable static_libs static} \
+	--enable-deprecated \
 	%{!?with_python3:--without-python3}
 %{__make}
 
@@ -122,9 +119,11 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/%{_lib}
+install -d $RPM_BUILD_ROOT/{%{_lib},%{bash_compdir}}
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libcap-ng.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so
+
+%{__mv} $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/libcap-ng.bash_completion $RPM_BUILD_ROOT%{bash_compdir}/libcap-ng
 
 %if %{with python3}
 %{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/_capng.la
@@ -175,6 +174,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/filecap.8*
 %{_mandir}/man8/netcap.8*
 %{_mandir}/man8/pscap.8*
+%{bash_compdir}/libcap-ng
 
 %if %{with python3}
 %files -n python3-capng
