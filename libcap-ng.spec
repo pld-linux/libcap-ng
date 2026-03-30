@@ -140,16 +140,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README.md
-%attr(755,root,root) /%{_lib}/libcap-ng.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libcap-ng.so.0
-%attr(755,root,root) %{_libdir}/libdrop_ambient.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libdrop_ambient.so.0
+/%{_lib}/libcap-ng.so.*.*.*
+%ghost /%{_lib}/libcap-ng.so.0
+%{_libdir}/libdrop_ambient.so.*.*.*
+%ghost %{_libdir}/libdrop_ambient.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcap-ng.so
+%{_libdir}/libcap-ng.so
 %{_libdir}/libcap-ng.la
-%attr(755,root,root) %{_libdir}/libdrop_ambient.so
+%{_libdir}/libdrop_ambient.so
 %{_libdir}/libdrop_ambient.la
 %{_includedir}/cap-ng.h
 %{_pkgconfigdir}/libcap-ng.pc
@@ -179,7 +179,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-capng
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py3_sitedir}/_capng.so
+%{py3_sitedir}/_capng.so
 %{py3_sitedir}/capng.py
 %{py3_sitedir}/__pycache__/capng.cpython-*.py[co]
 %endif
