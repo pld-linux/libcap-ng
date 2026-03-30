@@ -20,6 +20,7 @@ URL:		https://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 %{?with_python3:BuildRequires:	python3-modules >= 1:3.2}
@@ -105,8 +106,10 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %{__rm} bindings/python3/capng.py
 
 %build
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	%{__enable_disable static_libs static} \
