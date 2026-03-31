@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	python3		# CPython 3 bindings
 %bcond_without	static_libs	# static libraries
+%bcond_with	cap_audit	# cap-audit utility (requires btf capable kernel to build)
 #
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
@@ -20,11 +21,19 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	libtool >= 2:2
 BuildRequires:	linux-libc-headers >= 7:2.6.33.1
+BuildRequires:	pkgconfig
 %{?with_python3:BuildRequires:	python3-devel >= 1:3.2}
 %{?with_python3:BuildRequires:	python3-modules >= 1:3.2}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.527
 %{?with_python3:BuildRequires:	swig-python}
+%if %{with cap_audit}
+BuildRequires:	audit-libs-devel
+BuildRequires:	clang
+BuildRequires:	kernel-tools
+BuildRequires:	libbpf-devel
+# +some data in /sys/kernel/btf/vmlinux ???
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -108,8 +117,10 @@ Interfejs Pythona 3 do biblioteki libcap-ng.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{__enable_disable static_libs static} \
+	BPFTOOL=/usr/sbin/bpftool \
+	%{?with_cap_audit:--enable-cap-audit} \
 	--enable-deprecated \
+	%{__enable_disable static_libs static} \
 	%{!?with_python3:--without-python3}
 %{__make}
 
@@ -175,6 +186,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/netcap.8*
 %{_mandir}/man8/pscap.8*
 %{bash_compdir}/libcap-ng
+%if %{with cap_audit}
+%attr(755,root,root) %{_bindir}/cap-audit
+%{_mandir}/man8/cap-audit.8*
+%endif
 
 %if %{with python3}
 %files -n python3-capng
