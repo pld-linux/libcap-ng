@@ -7,13 +7,13 @@
 Summary:	Next Generation of POSIX capabilities library
 Summary(pl.UTF-8):	Biblioteka POSIX capabilities nowej generacji
 Name:		libcap-ng
-Version:	0.9.2
+Version:	0.9.3
 Release:	1
 Epoch:		1
 License:	LGPL v2.1+ (library), GPL v2+ (utilities)
 Group:		Libraries
 Source0:	https://github.com/stevegrubb/libcap-ng/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	c0603e7f6e68fa3fd4bcfc5ea93f3b93
+# Source0-md5:	a7667d27aa461f30d118a25cd4a62ede
 Patch0:		vserver.patch
 URL:		https://people.redhat.com/sgrubb/libcap-ng/
 BuildRequires:	attr-devel
@@ -134,7 +134,7 @@ install -d $RPM_BUILD_ROOT/{%{_lib},%{bash_compdir}}
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libcap-ng.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libcap-ng.so
 
-%{__mv} $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/libcap-ng.bash_completion $RPM_BUILD_ROOT%{bash_compdir}/libcap-ng
+%{__mv} $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/libcap-ng.bash_completion $RPM_BUILD_ROOT%{bash_compdir}/libcap-ng
 
 %if %{with python3}
 %{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/_capng.la
