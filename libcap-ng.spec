@@ -51,7 +51,7 @@ Summary:	Header files for libcap-ng library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libcap-ng
 License:	LGPL v2.1+
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	linux-libc-headers >= 7:2.6.26
 
 %description devel
@@ -65,7 +65,7 @@ Summary:	Static libcap-ng library
 Summary(pl.UTF-8):	Statyczna biblioteka libcap-ng
 License:	LGPL v2.1+
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description static
 Static libcap-ng library.
@@ -78,7 +78,7 @@ Summary:	Utilities for analysing and setting file capabilities
 Summary(pl.UTF-8):	Narzędzia do analizy i ustawiania capabilities dla plików
 License:	GPL v2+
 Group:		Applications/System
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description utils
 This package contains applications to analyse the POSIX capabilities
@@ -94,7 +94,7 @@ capabilities w systemie plików.
 Summary:	Python 3 interface to libcap-ng library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki libcap-ng
 Group:		Libraries/Python
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Obsoletes:	python-capng < 1:0.8.4
 
 %description -n python3-capng
